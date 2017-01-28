@@ -7,11 +7,18 @@ class MainGUI:
         master.title("ClipBook")
 
         # Declare GUI elements
-        self.listbox = Listbox(master)
-        self.listbox.insert(END, "a list entry")
+        self.pasteLb = Listbox(master)
+        self.pasteLb.insert(END, "a list entry")
         for item in ["one", "two", "three", "four"]:
-            self.listbox.insert(END, item)
-        self.listbox.pack()
+            self.pasteLb.insert(END, item)
+        self.pasteLb.grid(row=0, column=0, padx=10, pady=10)
+
+        self.pasteViewLbl = Text(master)
+        self.pasteViewLbl.insert(END, "Test")
+        self.pasteViewLbl.grid(row=0, column=1, rowspan=2, pady=20, padx=10)
+
+        self.clearBtn = Button(master, text="Clear")
+        self.clearBtn.grid(row=1, column=0, pady=10)
 
 root = Tk()
 main_GUI = MainGUI(root) # Create a GUI object and run it
