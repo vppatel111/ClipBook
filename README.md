@@ -1,0 +1,2 @@
+# ClipBook
+Clipboard manager.
