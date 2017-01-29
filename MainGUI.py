@@ -15,10 +15,15 @@ class MainGUI:
 
         self.pasteViewLbl = Text(master)
         self.pasteViewLbl.insert(END, "Test")
-        self.pasteViewLbl.grid(row=0, column=1, rowspan=2, pady=20, padx=10)
+        self.pasteViewLbl.grid(row=0, column=1, pady=20, padx=10)
 
-        self.clearBtn = Button(master, text="Clear")
-        self.clearBtn.grid(row=1, column=0, pady=10)
+        self.addBtn = Button(master, text="Add Paste")
+        self.addBtn.grid(row=2, column=0, pady=10)
+
+        self.removeBtn = Button(master, text="Remove Paste")
+        self.removeBtn.grid(row=3, column=0, pady=10)
+
+
 
 root = Tk()
 main_GUI = MainGUI(root) # Create a GUI object and run it
