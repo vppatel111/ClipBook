@@ -10,13 +10,9 @@ def checkPress(event):
     l_shift_press = GetKeyState(HookConstants.VKeyToID('VK_SHIFT'))
     if event.Ascii in range(48,58):
         if l_ctrl_press and l_shift_press:
-            numPessed = getNum(event)
-            sys.exit("Stopped") ##TODO: NOT STOP
-
+            numPressed = getNum(event)
         if l_alt_press and l_shift_press:
             numPressed = getNum(event)
-            sys.exit("Stopped") ##TODO: NOT STOP
-
     return True
 # GUI Class
 class MainGUI:
