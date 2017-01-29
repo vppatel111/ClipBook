@@ -63,20 +63,6 @@ def fileOpen():
             counter += 1
     print(pastamasta)
     f.close()
-
-
-def readNewList():
-    f.close() #if run into errors, look at this
-    global pastas
-
-    #listName = input()    ask for what the list is called
-    listName = 'test'    #for the sake of the function
-    listName = listName + '.txt'
-
-    f = open(listName, 'r+')
-    testString = f.read()
-    pastas = testString.split()
-
     return
 
 
@@ -159,9 +145,9 @@ class MainGUI:
 
     def next_chapter(self):
         global book
-
-        if book < 5:
-            book += 1
+        book += 1
+        if book >= 5:
+            book = 4
 
         fillPastes(main_GUI)
 
@@ -176,6 +162,7 @@ class MainGUI:
     def callback(event, e, e2):
         savingString(int(e2.get()), e.get())
         fillPastes(main_GUI)
+        fileSave()
 
     def setPasteLb(self, paste):
         self.pasteLb.insert(END, paste)
