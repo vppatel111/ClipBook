@@ -1,7 +1,7 @@
 from tkinter import * # import everything from tkinter
 import pyHook, pyperclip, json
 from pyHook import HookManager, GetKeyState, HookConstants
-global book
+global book, bookMax
 #retrieves the requested element and makes it your clipboard
 def retrieving(numPressed):
     if numPressed != 10: #numPressed is a global variable that is equal to what number is pressed
@@ -48,6 +48,7 @@ def fileSave():
 
 #loads in the users file
 def fileOpen():
+    global bookMax
     f = open('flameo.txt','r')
     tmp = json.load(f)
     bCounter = -1
@@ -55,16 +56,16 @@ def fileOpen():
     for pastas in tmp:
         bCounter += 1
         counter = 0
+        if bCounter >= 5:
+            newChapter()
         for line in pastas:
-            print(bCounter)
-            print(line)
-            print('-----')
             pastamasta[bCounter][counter] = line
             counter += 1
     print(pastamasta)
+    bookMax = bCounter
+    print(bookMax)
     f.close()
     return
-
 
 def checkPress(event):
     global numPressed, book
@@ -76,7 +77,7 @@ def checkPress(event):
     if event.Key == 'Oem_3':
         if l_shift_press:
             book += 1
-            if book >= 5:
+            if book >= bookMax:
                 book = 0
             fillPastes(main_GUI)
 
@@ -144,15 +145,15 @@ class MainGUI:
         self.addBtn = Button(master, text="Add Paste", command=lambda e=self.e, e2=self.e2: self.callback(e, e2))
         self.addBtn.grid(row=2, column=0, pady=10)
 
-        self.removeBtn = Button(master, text="Remove Paste")
+        self.removeBtn = Button(master, text="Remove Paste", command=lambda e=self.e, e2=self.e2: self.removePasteLb(e2))
         self.removeBtn.grid(row=3, column=0, pady=10)
 
     def next_chapter(self):
-        global book
+        global book, bookMax
         book += 1
-        if book >= 5:
-            book = 4
-
+        if book >= bookMax+1:
+            book = bookMax
+        print(book)
         fillPastes(main_GUI)
 
     def prev_chapter(self):
@@ -160,7 +161,6 @@ class MainGUI:
 
         if book > 0:
             book -= 1
-
         fillPastes(main_GUI)
 
     def callback(event, e, e2):
@@ -171,6 +171,11 @@ class MainGUI:
     def setPasteLb(self, paste):
         self.pasteLb.insert(END, paste)
 
+    def removePasteLb(self,e2):
+        savingString(int(e2.get()),' ')
+        fillPastes(main_GUI)
+        fileSave()
+
     def clearPasteLb(self):
         self.pasteLb.delete(0, END)
 
@@ -179,6 +184,14 @@ class MainGUI:
         self.pasteViewLbl.delete(1.0, END)
         self.pasteViewLbl.insert(END, (self.pasteLb.get(self.pasteLb.curselection())))
 
+def newChapter():
+    global bookMax
+    bookMax += 1
+    tmp = list()
+    for i in range(10):
+        tmp.append(' ')
+    pastamasta.append(tmp)
+
 pastamasta  = [] #holds all the lists
 book1 = []
 book2 = [] ##each book must be a separate list
@@ -186,9 +199,10 @@ book3 = []
 book4 = []
 book5 = []
 
+book = 0 ## Variable that holds which book we are using
+bookMax = 5
 createNewList()
 fileOpen()
-book = 0 ## Variable that holds which book we are using
 root = Tk()
 main_GUI = MainGUI(root) # Create a GUI object and run it
 
