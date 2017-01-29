@@ -122,6 +122,8 @@ class MainGUI:
         self.pasteLb.bind('<<ListboxSelect>>', self.on_select)
 
         self.menubar = Menu(master)
+        self.prompt1 = Label(master,text="Chapter: " + str(book))
+        self.prompt1.grid(row=0, column=0, sticky=N, pady=75)
         #self.menubar.add_command(label="Add Chapter")
         self.menubar.add_command(label="Next Chapter", command=self.next_chapter)
         self.menubar.add_command(label="Previous Chapter", command=self.prev_chapter)
@@ -157,6 +159,7 @@ class MainGUI:
             book = bookMax
         print(book)
         fillPastes(main_GUI)
+        self.prompt1.config(text="Chapter: " + str(book))
 
     def prev_chapter(self):
         global book
@@ -164,6 +167,7 @@ class MainGUI:
         if book > 0:
             book -= 1
         fillPastes(main_GUI)
+        self.prompt1.config(text="Chapter: " + str(book))
 
     # Added Code #
     def clear_chapter(self):
