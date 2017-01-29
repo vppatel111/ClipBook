@@ -86,11 +86,12 @@ def checkPress(event):
     l_ctrl_press = GetKeyState(HookConstants.VKeyToID('VK_CONTROL'))
     l_alt_press = GetKeyState(HookConstants.VKeyToID('VK_MENU'))
     l_shift_press = GetKeyState(HookConstants.VKeyToID('VK_SHIFT'))
-    print("Print", event.Ascii)
+    print("Print", event.Key)
+    print("Ascii", event.Ascii)
     #print("CTRL", l_ctrl_press)
     #print("ALT", l_alt_press)
     #print("SHIFT", l_shift_press)
-    if event.Ascii in range(48,58):
+    if event.Key in ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]: #Is the list inclusive/Also should work everytime
         print("ascii satisfied")
         if l_ctrl_press and l_shift_press:
             print("ctrl-shift satisfied")
