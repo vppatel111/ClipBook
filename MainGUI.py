@@ -127,6 +127,7 @@ class MainGUI:
         #self.menubar.add_command(label="Add Chapter")
         self.menubar.add_command(label="Next Chapter", command=self.next_chapter)
         self.menubar.add_command(label="Previous Chapter", command=self.prev_chapter)
+        self.menubar.add_command(label="Remove Current Chapter", command=self.removeChapter)
         #self.menubar.add_command(label="Remove Chapter")
         self.menubar.add_command(label="Quit", command=root.quit)
         self.menubar.add_command(label="Clear Chapter", command=self.clear_chapter)
@@ -141,7 +142,7 @@ class MainGUI:
         self.e.grid(row=2, column=1, columnspan=2)
 
         self.prompt = Label(master, text="Input which selection to save over:")
-        self.prompt.grid(row=3, column=2, sticky=W)
+        self.prompt.grid(row=3, column=2, sticky=E,padx=65)
 
         self.e2 = Entry(master, width=10)
         self.e2.grid(row=3, column=2, stick=E)
@@ -196,6 +197,14 @@ class MainGUI:
         print("catching event")
         self.pasteViewLbl.delete(1.0, END)
         self.pasteViewLbl.insert(END, (self.pasteLb.get(self.pasteLb.curselection())))
+
+    def removeChapter(self):
+        global bookMax, book
+        pastamasta.pop(book)
+        bookMax -= 1
+        book -= 1
+        fileSave()
+
 
 def newChapter():
     global bookMax
