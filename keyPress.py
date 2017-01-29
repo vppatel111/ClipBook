@@ -23,18 +23,7 @@ def getNum(event):
     print(event.Key)
     return event.Key
 
-
 hm = pyHook.HookManager()
 hm.KeyDown = checkPress
 hm.HookKeyboard()
 pythoncom.PumpMessages()
-
-#LOOPS and listens for global input
-#Recieves notification of global input
-startThread()
-print("Broken") ##WILL PRINT AFTER F
-while 1:
-    print("A")
-
-
-    time.sleep(5)
