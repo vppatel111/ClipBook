@@ -130,10 +130,10 @@ class MainGUI:
         self.pasteLb.bind('<<ListboxSelect>>', self.on_select)
 
         self.menubar = Menu(master)
-        self.menubar.add_command(label="Add Chapter")
+        #self.menubar.add_command(label="Add Chapter")
         self.menubar.add_command(label="Next Chapter", command=self.next_chapter)
         self.menubar.add_command(label="Previous Chapter", command=self.prev_chapter)
-        self.menubar.add_command(label="Remove Chapter")
+        #self.menubar.add_command(label="Remove Chapter")
         self.menubar.add_command(label="Quit", command=root.quit)
         self.master.config(menu=self.menubar)
 
