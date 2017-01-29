@@ -2,22 +2,22 @@ from tkinter import * # import everything from tkinter
 import pyHook, pyperclip, json
 from pyHook import HookManager, GetKeyState, HookConstants
 global book
+#retrieves the requested element and makes it your clipboard
 def retrieving(numPressed):
     if numPressed != 10: #numPressed is a global variable that is equal to what number is pressed
         tmp = pastamasta[book]
         pyperclip.copy(tmp[numPressed - 1])##does not work
         numPressed = 10
     return
-
+#Saves the requested element
 def saving(numPressed):
     if numPressed != 10: #numPressed is a global variable that is equal to what number is pressed
         pastamasta[book][numPressed - 1] = pyperclip.paste() ##does not work
         numPressed = 10
     return
-
+#initializes list
 def createNewList():
     f = open('flameo.txt', 'r+')
-
     for pasta in range(10):
         book1.append('')
         book2.append('')
@@ -33,28 +33,28 @@ def createNewList():
 
     return
 
+#saves the file
 def fileSave():
     f = open('flameo.txt','w')
     json.dump(pastamasta,f)
     f.close()
     return
 
-#Not working
+#loads in the users file
 def fileOpen():
     f = open('flameo.txt','r')
     tmp = json.load(f)
     bCounter = -1
     counter = 0
-    print(pastamasta)
-    #for pastas in tmp:
-    #    bCounter += 1
-    #    counter = 0
-    #    for line in pastas:
-    #        print(bCounter)
-    #        print(line)
-    #        print('-----')
-    #        pastamasta[bCounter][counter] = pastas
-    #        counter += 1
+    for pastas in tmp:
+        bCounter += 1
+        counter = 0
+        for line in pastas:
+            print(bCounter)
+            print(line)
+            print('-----')
+            pastamasta[bCounter][counter] = line
+            counter += 1
     print(pastamasta)
     f.close()
 
