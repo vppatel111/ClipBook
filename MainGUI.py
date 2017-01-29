@@ -1,19 +1,17 @@
 from tkinter import * # import everything from tkinter
-import pyHook, pythoncom, ctypes, pyperclip
-import sys
+import pyHook, pyperclip, json
 from pyHook import HookManager, GetKeyState, HookConstants
-import list_creation,read_new_list
 global book
 def retrieving(numPressed):
     if numPressed != 10: #numPressed is a global variable that is equal to what number is pressed
-        pyperclip.copy(pastamasta[book][numPressed - 1])##does not work
+        tmp = pastamasta[book]
+        pyperclip.copy(tmp[numPressed - 1])##does not work
         numPressed = 10
     return
 
 def saving(numPressed):
     if numPressed != 10: #numPressed is a global variable that is equal to what number is pressed
         pastamasta[book][numPressed - 1] = pyperclip.paste() ##does not work
-        print(pastamasta)
         numPressed = 10
     return
 
@@ -21,20 +19,45 @@ def createNewList():
     f = open('flameo.txt', 'r+')
 
     for pasta in range(10):
-        pastas.append('')
+        book1.append('')
+        book2.append('')
+        book3.append('')
+        book4.append('')
+        book5.append('')
 
-    for i in range(5):
-        pastamasta.append(pastas)
+    pastamasta.append(book1)
+    pastamasta.append(book2)
+    pastamasta.append(book3)
+    pastamasta.append(book4)
+    pastamasta.append(book5)
 
     return
 
 def fileSave():
-    listName = 'flameo.txt'
-    f = open(listName,'w')
-    for pasta in range(len(pastas)):
-        f.write(pastas[pasta] + ' ')
+    f = open('flameo.txt','w')
+    json.dump(pastamasta,f)
     f.close()
     return
+
+#Not working
+def fileOpen():
+    f = open('flameo.txt','r')
+    tmp = json.load(f)
+    bCounter = -1
+    counter = 0
+    print(pastamasta)
+    #for pastas in tmp:
+    #    bCounter += 1
+    #    counter = 0
+    #    for line in pastas:
+    #        print(bCounter)
+    #        print(line)
+    #        print('-----')
+    #        pastamasta[bCounter][counter] = pastas
+    #        counter += 1
+    print(pastamasta)
+    f.close()
+
 
 def readNewList():
     f.close() #if run into errors, look at this
@@ -95,12 +118,16 @@ class MainGUI:
 
 
 
-pastamasta  = []
-pastas = []
+pastamasta  = [] #holds all the lists
+book1 = []
+book2 = [] ##each book must be a separate list
+book3 = []
+book4 = []
+book5 = []
 
 createNewList()
-print(pastamasta)
-book = 0
+fileOpen()
+book = 0 ## Variable that holds which book we are using
 root = Tk()
 main_GUI = MainGUI(root) # Create a GUI object and run it
 hm = pyHook.HookManager()
