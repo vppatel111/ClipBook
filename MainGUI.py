@@ -124,7 +124,7 @@ class MainGUI:
         self.menubar = Menu(master)
         self.prompt1 = Label(master,text="Chapter: " + str(book))
         self.prompt1.grid(row=0, column=0, sticky=N, pady=75)
-        #self.menubar.add_command(label="Add Chapter")
+        self.menubar.add_command(label="Add Chapter",command=self.add_Chapter)
         self.menubar.add_command(label="Next Chapter", command=self.next_chapter)
         self.menubar.add_command(label="Previous Chapter", command=self.prev_chapter)
         self.menubar.add_command(label="Remove Current Chapter", command=self.removeChapter)
@@ -203,7 +203,17 @@ class MainGUI:
         pastamasta.pop(book)
         bookMax -= 1
         book -= 1
+        self.prompt1.config(text="Chapter: " + str(book))
+        fillPastes(main_GUI)
         fileSave()
+
+    def add_Chapter(self):
+        global book,bookMax
+        newChapter()
+        book = bookMax
+        self.prompt1.config(text="Chapter: " + str(book))
+        fillPastes(main_GUI)
+
 
 
 def newChapter():
