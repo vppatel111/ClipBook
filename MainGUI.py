@@ -127,6 +127,8 @@ class MainGUI:
         self.menubar.add_command(label="Previous Chapter", command=self.prev_chapter)
         #self.menubar.add_command(label="Remove Chapter")
         self.menubar.add_command(label="Quit", command=root.quit)
+        self.menubar.add_command(label="Clear Chapter", command=self.clear_chapter)
+        self.master.config(menu=self.menubar)
         self.master.config(menu=self.menubar)
 
         self.pasteViewLbl = Text(master)
@@ -162,6 +164,13 @@ class MainGUI:
         if book > 0:
             book -= 1
         fillPastes(main_GUI)
+
+    # Added Code #
+    def clear_chapter(self):
+        for i in range(1, 10):
+            savingString(i, " ")
+            fillPastes(main_GUI)
+            fileSave()
 
     def callback(event, e, e2):
         savingString(int(e2.get()), e.get())
